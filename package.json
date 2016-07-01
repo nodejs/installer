@@ -12,9 +12,11 @@
     "yo-yo": "^1.2.2"
   },
   "devDependencies": {
-    "electron-prebuilt": "^1.2.5"
+    "electron-prebuilt": "^1.2.5",
+    "node-style": "^1.0.0"
   },
   "scripts": {
+    "lint": "node-style",
     "start": "electron ."
   },
   "keywords": [],
