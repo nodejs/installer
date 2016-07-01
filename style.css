@@ -1,3 +1,10 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-variant-ligatures: none;
+          font-variant-ligatures: none;
+}
+
 body {
   background-color: #333333;
   color: white;
