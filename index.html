@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Node.js Installer</title>
+    <style>
+      body {
+        background-color: #333333;
+        color: white;
+        font-family: Verdana, Geneva, sans-serif;
+      }
+
+      button {
+        color: #d3d3d3;
+        background: rgba(0,0,0,0);
+        border: solid 5px #d3d3d3;
+        cursor: pointer;
+        font-size: 30px;
+      }
+      button:hover,
+      button.hover {
+        border-color: #a8a8a8;
+        color: #a8a8a8;
+      }
+      button:active,
+      button.active {
+        border-color: #7e7e7e;
+        color: #7e7e7e;
+      }
+
+      .loader,
+      .loader:before,
+      .loader:after {
+        background: #ffffff;
+        -webkit-animation: load1 1s infinite ease-in-out;
+        animation: load1 1s infinite ease-in-out;
+        width: 1em;
+        height: 4em;
+      }
+      .loader:before,
+      .loader:after {
+        position: absolute;
+        top: 0;
+        content: '';
+      }
+      .loader:before {
+        left: -1.5em;
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+      .loader {
+        color: #ffffff;
+        text-indent: -9999em;
+        margin: 88px auto;
+        position: relative;
+        font-size: 11px;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+      .loader:after {
+        left: 1.5em;
+      }
+      @-webkit-keyframes load1 {
+        0%,
+        80%,
+        100% {
+          box-shadow: 0 0;
+          height: 4em;
+        }
+        40% {
+          box-shadow: 0 -2em;
+          height: 5em;
+        }
+      }
+      @keyframes load1 {
+        0%,
+        80%,
+        100% {
+          box-shadow: 0 0;
+          height: 4em;
+        }
+        40% {
+          box-shadow: 0 -2em;
+          height: 5em;
+        }
+      }
+      div#load {
+        text-align: center;
+      }
+      div#main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      div.big-version {
+        font-size:40px;
+      }
+      div.item {
+        width: 100%;
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      div.card {
+        background-color:#3f3f3f;
+        padding: 10px 10px 10px 10px;
+        margin: 10px 10px 10px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div id="load">
+        <div>Aquiring Latest Version Information</div>
+        <div class="loader">Loading...</div>
+      </div>
+    </div>
+
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    <!--We are using node <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.-->
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    const yo = require('yo-yo')
+    const semver = require('semver')
+
+    const check = require('./lib/check-node')
+    const load = require('./lib/load.js')
+    const install = require('./lib/install')
+
+    const mainElement = document.getElementById('main')
+
+    function clear () {
+      mainElement.innerHTML = ''
+    }
+    load((err, versions) => {
+      if (err) throw err
+
+      function installPage (button) {
+        clear()
+
+        var version = button.getAttribute('nodejs-version')
+
+        var el = yo`
+          <div class="card">
+            <div class="downloading">Downloading ${version}...<div class="loader">Loading...</div></div>
+          </div>`
+        mainElement.appendChild(el)
+
+        function up () {
+          var update = yo`
+          <div class="card">
+            <div class="installing">Installing ${version}...<div class="loader">Loading...</div></div>
+          </div>`
+          yo.update(el, update)
+        }
+
+        install(version, up, (err, v) => {
+          if (err) {
+            alert(err)
+            allVersionsPage()
+            throw err
+          }
+          // TODO: Check to make sure that versions match.
+          allVersionsPage()
+        })
+      }
+
+      function allVersionsPage () {
+        clear()
+        check((err, version) => {
+          if (version) {
+            var latest = versions.latest(version)
+            if (semver.eq(latest.version, version)) {
+              var el = yo`
+              <div class="item">
+                <div class="card">
+                  <div id="current-version">
+                    <div class="big-version">Installed: ${latest.version}</div>
+                    <div class="version-desc">This is the latest version of v${semver.major(version)}.</div>
+                  </div>
+                </div>
+              </div>`
+            } else {
+              var el = yo`
+              <div class="item">
+                <div class="card">
+                  <div id="current-version">
+                    <div class="big-version">Installed: v${version}</div>
+                    <div class="version-desc">There is an updated version of v${semver.major(version)}.</div>
+                    <button class="install" style="margin-top:10px;" nodejs-version="${latest.version}">Update to ${latest.version}</button>
+                  </div>
+                </div>
+              </div>`
+            }
+          }
+          mainElement.appendChild(el)
+
+          var stable = versions.latestLTS()
+          console.log(stable)
+          var el = yo`
+          <div class="item">
+            <div class="card">
+              <div id="current-version">
+                <div class="big-version">Latest Stable: <button class="install" nodejs-version="${stable.version}">${stable.version}</button>
+                </div>
+              </div>
+            </div>
+          </div>`
+          mainElement.appendChild(el)
+
+          var current = versions.latest()
+          var el = yo`
+          <div class="item">
+            <div class="card">
+              <div id="current-version">
+                <div class="big-version">Latest Current: <button class="install" nodejs-version="${current.version}">${current.version}</button>
+                </div>
+              </div>
+            </div>
+          </div>`
+          mainElement.appendChild(el)
+          
+          document.body.addEventListener('click', function (ev) {
+            var button = ev.target
+            if (button.tagName !== 'BUTTON') return // Only listen for buttons
+
+            installPage(button)
+          })
+        })
+      }
+      allVersionsPage()
+    })
+  </script>
+</html>
