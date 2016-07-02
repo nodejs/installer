@@ -133,7 +133,7 @@
     const check = require('./lib/check-node')
     const load = require('./lib/load.js')
     const install = require('./lib/install')
-
+    const opn = require('opn')
     const mainElement = document.getElementById('main')
 
     function clear () {
@@ -168,13 +168,25 @@
             throw err
           }
           // TODO: Check to make sure that versions match.
-          allVersionsPage()
+          allVersionsPage(v)
         })
       }
 
-      function allVersionsPage () {
+      function allVersionsPage (installedVersion) { // true if we just installed a version
         clear()
         check((err, version) => {
+          if (installedVersion) {
+            let el = yo`
+            <div class="item">
+              <div class="card">
+                <div id="nodeschool">
+                  <div class="installed-message">Just installed Node.js ${installedVersion}</div>
+                  <div class="nodeschool-desc">To get started with Node.js, visit <a href="http://nodeschool.io" class="nodeschool-link">NodeSchool.io</a> where you'll find open-source automated workshops and in-person events all over the world.</div>
+                </div>
+              </div>
+            </div>`
+            mainElement.appendChild(el)
+          }
           if (version) {
             var latest = versions.latest(version)
             if (semver.eq(latest.version, version)) {
@@ -226,12 +238,15 @@
             </div>
           </div>`
           mainElement.appendChild(el)
-          
-          document.body.addEventListener('click', function (ev) {
-            var button = ev.target
-            if (button.tagName !== 'BUTTON') return // Only listen for buttons
 
-            installPage(button)
+          document.body.addEventListener('click', function (event) {
+            let target = event.target
+            if (target.tagName === 'A' && target.className == 'nodeschool-link') {
+              event.preventDefault()
+              opn('http://nodeschool.io')
+            }
+            if (target.tagName !== 'BUTTON') return // Only listen for buttons
+            installPage(target)
           })
         })
       }
