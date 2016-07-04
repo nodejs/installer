@@ -71,8 +71,9 @@
         check((err, version) => {
           if (version) {
             var latest = versions.latest(version)
+            let el
             if (semver.eq(latest.version, version)) {
-              var el = yo`
+              el = yo`
               <div class="item">
                 <div class="card">
                   <div id="current-version">
@@ -82,7 +83,7 @@
                 </div>
               </div>`
             } else {
-              var el = yo`
+              el = yo`
               <div class="item">
                 <div class="card">
                   <div id="current-version">
@@ -93,12 +94,12 @@
                 </div>
               </div>`
             }
+            mainElement.appendChild(el)
           }
-          mainElement.appendChild(el)
 
           var stable = versions.latestLTS()
           console.log(stable)
-          var el = yo`
+          let el = yo`
           <div class="item">
             <div class="card">
               <div id="current-version">
@@ -110,7 +111,7 @@
           mainElement.appendChild(el)
 
           var current = versions.latest()
-          var el = yo`
+          el = yo`
           <div class="item">
             <div class="card">
               <div id="current-version">
