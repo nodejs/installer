@@ -13,12 +13,18 @@
     "yo-yo": "^1.2.2"
   },
   "devDependencies": {
+    "electron-builder": "^5.10.5",
     "electron-prebuilt": "^1.2.5"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "keywords": [],
   "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (http://www.mikealrogers.com)",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "build": {
+    "appId": "org.nodejs.installer"
+  }
 }
