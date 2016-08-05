@@ -108,7 +108,11 @@ div.item {
   justify-content: center;
 }
 div.card {
+  width: 500px;
   background-color:#3f3f3f;
   padding: 10px 10px 10px 10px;
   margin: 10px 10px 10px 10px;
+}
+div.nodeschool-desc {
+  justify-content: center;  
 }
