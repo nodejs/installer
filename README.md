@@ -2,7 +2,7 @@
 
 This is an Electron application for installing, updating and managing versions of Node.js.
 
-The goal is to be far more humane and user friendly than traditional methods of installation.
+The goal is to be far more humane and user friendly than traditional methods of installation. The focus is primarily new users to Node, who are just looking for the easiest way to get started.
 
 ## To Develop
 
@@ -19,3 +19,13 @@ npm install && npm start
 
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
 
+## Tests and Linting
+
+This project uses [StandardJS](http://standardjs.com/) as its style guide.
+
+Tests are on the way!
+
+```bash
+# Run the linter and tests
+npm test
+```
