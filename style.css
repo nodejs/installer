@@ -29,11 +29,19 @@ a {
 }
 
 .color-green {
-  color: #56af57
+  color: #56af57;
 }
 
 .background-green {
-  background-color: #56af57
+  background-color: #56af57;
+}
+
+.background-red {
+  background-color: #D32F2F;
+}
+
+.color-red {
+  color: #D32F2F;
 }
 
 /******************/
@@ -149,7 +157,31 @@ pre, code, code span {
 #installing div h1 {
   font-weight: lighter;
   font-size: 3em;
-  margin: 100px; 0px
+  margin: 100px 0px;
+}
+
+#installing .error-message {
+  display: none;
+  padding: 20px;
+  border-radius: 3px;
+}
+
+#error-text {
+  -webkit-user-select: all;
+  user-select: all;
+  font-size: 1.2em;
+  margin: 0;
+  padding: 0;
+}
+
+#error-button {
+  display: block;
+  border: 1px #D32F2F solid;
+  border-radius: 3px;
+  padding: 10px 15px;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 30px;
 }
 
 /***************/
