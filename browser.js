@@ -1,5 +1,5 @@
 'use strict'
-/* globals alert */
+/* globals alert, Prism */
 
 const semver = require('semver')
 
@@ -13,7 +13,9 @@ const fakeInstall = (v, cb) => {
     cb(new Error('Error: installation failed for some reason.'), v)
   }, 5000)
 }
+const getExample = require('./lib/examples')
 
+// utility
 const errIcon = '<i class="fa fa-exclamation-triangle"></i>'
 const domElement = e => document.querySelector(e)
 const writeHTML = (e, h) => { domElement(e).innerHTML = h }
@@ -99,5 +101,12 @@ function installErrorEvent (e) {
   writeHTML('#error-text', '')
   installing.done()
 }
+
+// Adds a random code example and refreshes Prism lib
+getExample((title, code) => {
+  writeHTML('#code-title', title)
+  writeHTML('#code-example', code)
+  Prism.highlightElement(domElement('#code-example'))
+})
 
 domElement('#error-button').addEventListener('click', installErrorEvent)

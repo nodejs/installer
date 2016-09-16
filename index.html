@@ -50,18 +50,9 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-              <h4 class="title color-green">A simple http file server:</h4>
-            <pre>
-              <code class="language-javascript">
-const http = require('http')
-const fs = require('fs')
-
-const server = http.createServer(function (req, res) {
-  res.writeHead(200, { 'content-type': 'text/plain' })
-  fs.createReadStream('./file.txt').pipe(res)
-})
-
-server.listen(3000)
+              <h4 id="code-title" class="title color-green">A simple http file server:</h4>
+            <pre id="code-container">
+              <code id="code-example" class="language-javascript">
               </code>
             </pre>
           </div>
