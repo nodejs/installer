@@ -3,169 +3,80 @@
   <head>
     <meta charset="UTF-8">
     <title>Node.js Installer</title>
+    <link rel="stylesheet" href="./node_modules/flexboxgrid/dist/flexboxgrid.min.css" type="text/css">
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./node_modules/prismjs/themes/prism.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
   <body>
-    <div id="main">
-      <div id="load">
-        <div>Acquiring Latest Version Information</div>
-        <div class="loader">Loading...</div>
+    <div id="main" class="row">
+      <div class="col-xs-4 left-panel background-green">
+        <div class="row">
+          <div class="col-xs-12 node-image-container">
+            <img id="node-logo" src="./images/nodejs-new-white-bw.png" alt="node logo" onclick="require('electron').shell.openExternal('https://nodejs.org/en/')"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <p id="installed-version">Installed version: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></p>
+          </div>
+          <div class="col-xs-12">
+            <a href="#" id="update-to" class="version-button"><img src="./images/lgoonodejswhite.png" alt="" /> Update to: <span></span></a>
+          </div>
+        </div>
+        <div class="row bottom">
+          <div class="col-xs-12">
+            <p>Latest versions:</p>
+          </div>
+          <div class="col-xs-12">
+            <a href="#" id="install-stable" class="version-button"><img src="./images/lgoonodejswhite.png" alt="" /> Install stable: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
+          </div>
+          <div class="col-xs-12">
+            <a href="#" id="install-latest" class="version-button"><img src="./images/lgoonodejswhite.png" alt="" /> Install current: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-8 right-panel">
+        <div class="row">
+          <div class="col-xs-12 school-image-container">
+            <img src="./images/schoolhouse.svg" alt="" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 class="title color-green">Educational resources:</h3>
+            <p class="text">Open source workshops that teach web software skills.<br />Do them on your own or at a workshop nearby.<br /><a href="#" onclick="require('electron').shell.openExternal('http://nodeschool.io/')">http://nodeschool.io/</a></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+              <h4 id="code-title" class="title color-green">A simple http file server:</h4>
+            <pre id="code-container">
+              <code id="code-example" class="language-javascript">
+              </code>
+            </pre>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    <!--We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.-->
+    <div id="installing" class="row">
+      <div class="col-xs-12">
+        <h1 class="color-green">Installing Node.js</h1>
+      </div>
+      <div class="col-xs-12">
+        <div class="sk-folding-cube">
+          <div class="sk-cube1 sk-cube"></div>
+          <div class="sk-cube2 sk-cube"></div>
+          <div class="sk-cube4 sk-cube"></div>
+          <div class="sk-cube3 sk-cube"></div>
+        </div>
+      </div>
+      <div class="col-xs-offset-3 col-xs-6 error-message">
+          <p id="error-text" class="color-red"></p>
+          <a id="error-button" href="#" class="color-red">Return to installer</a>
+      </div>
+    </div>
+    <script src="./node_modules/prismjs/prism.js"></script>
+    <script src="./browser.js"></script>
   </body>
-
-  <script>
-    // You can also require other files to run in this process
-    const yo = require('yo-yo')
-    const semver = require('semver')
-
-    const check = require('./lib/check-node')
-    const load = require('./lib/load.js')
-    const install = require('./lib/install')
-    const opn = require('opn')
-    const mainElement = document.getElementById('main')
-
-    function clear () {
-      mainElement.innerHTML = ''
-    }
-    load((err, versions) => {
-      if (err) throw err
-
-      function installPage (button) {
-        clear()
-
-        var version = button.getAttribute('nodejs-version')
-
-        var el = yo`
-          <div class="card">
-            <div class="downloading">Downloading ${version}...<div class="loader">Loading...</div></div>
-          </div>`
-        mainElement.appendChild(el)
-
-        function up () {
-          var update = yo`
-          <div class="card">
-            <div class="installing">Installing ${version}...<div class="loader">Loading...</div></div>
-          </div>`
-          yo.update(el, update)
-        }
-
-        install(version, up, (err, v) => {
-          if (err) {
-            alert(err)
-            allVersionsPage()
-            throw err
-          }
-          // TODO: Check to make sure that versions match.
-          allVersionsPage(v)
-        })
-      }
-
-      function allVersionsPage (installedVersion) { // true if we just installed a version
-        clear()
-        check((err, version) => {
-          let el = yo`
-          <div class="item">
-              <div id="node-logo">
-                <a href="http://nodejs.org"><img src="images/nodejs-new-white-pantone.png" width="100"/></a>
-                </div>
-              </div>
-          </div>`
-          mainElement.appendChild(el)
-          if (installedVersion) {
-            let el = yo`
-            <div class="item">
-              <div class="card">
-                <div id="installed-version">
-                  <div class="installed-message">You just installed Node.js ${installedVersion}</div>
-                </div>
-              </div>
-            </div>`
-            mainElement.appendChild(el)
-            el = yo`
-            <div class="item">
-              <div class="card">
-                <div id="nodeschool">
-                  <center>
-                    <a href="http://nodeschool.io">
-                      <img src="images/schoolhouse.svg" width="200" title="Open source workshops that teach web software skills. Do them on your own or at a workshop nearby."/></a>
-                  </center>
-                  <div class="nodeschool-desc">To start learning Node.js, visit <a href="http://nodeschool.io" class="nodeschool-link">NodeSchool.io</a> where you'll find open-source automated workshops and in-person events all over the world.</div>
-                </div>
-              </div>
-            </div>`
-            mainElement.appendChild(el)
-          }
-          if (version) {
-            var latest = versions.latest(version)
-            let el
-            if (semver.eq(latest.version, version)) {
-              el = yo`
-              <div class="item">
-                <div class="card">
-                  <div id="current-version">
-                    <div class="big-version">Installed: ${latest.version}</div>
-                    <div class="version-desc">This is the latest version of v${semver.major(version)}.</div>
-                  </div>
-                </div>
-              </div>`
-            } else {
-              el = yo`
-              <div class="item">
-                <div class="card">
-                  <div id="current-version">
-                    <div class="big-version">Installed: v${version}</div>
-                    <div class="version-desc">There is an updated version of v${semver.major(latest.version)}.</div>
-                    <button class="install" style="margin-top:10px;" nodejs-version="${latest.version}">Update to ${latest.version}</button>
-                  </div>
-                </div>
-              </div>`
-            }
-            mainElement.appendChild(el)
-          }
-
-          var stable = versions.latestLTS()
-          console.log(stable)
-          el = yo`
-          <div class="item">
-            <div class="card">
-              <div id="current-version">
-                <div class="big-version">Latest Stable: <button class="install" nodejs-version="${stable.version}">${stable.version}</button>
-                </div>
-              </div>
-            </div>
-          </div>`
-          mainElement.appendChild(el)
-
-          var current = versions.latest()
-          el = yo`
-          <div class="item">
-            <div class="card">
-              <div id="current-version">
-                <div class="big-version">Latest Current: <button class="install" nodejs-version="${current.version}">${current.version}</button>
-                </div>
-              </div>
-            </div>
-          </div>`
-          mainElement.appendChild(el)
-
-          document.body.addEventListener('click', function (event) {
-            let target = event.target
-            if (target.tagName === 'A' && target.className == 'nodeschool-link') {
-              event.preventDefault()
-              opn('http://nodeschool.io')
-            }
-            if (target.tagName !== 'BUTTON') return // Only listen for buttons
-            installPage(target)
-          })
-        })
-      }
-      allVersionsPage()
-    })
-  </script>
 </html>
