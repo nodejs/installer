@@ -5,14 +5,7 @@ const semver = require('semver')
 
 const getInstalledVersion = require('./lib/check-node')
 const loadVersions = require('./lib/load.js')
-// const install = require('./lib/install')
-// for testing purpose
-const fakeInstall = (v, cb) => {
-  console.log('fake install', v)
-  setTimeout(() => {
-    cb(new Error('Error: installation failed for some reason.'), v)
-  }, 5000)
-}
+const installNode = require('./lib/install')
 const getExample = require('./lib/examples')
 
 // utility
@@ -77,7 +70,7 @@ function installEvent (e) {
     installing.start()
     // gets version number from button text
     const version = this.children[1].innerHTML.slice(1)
-    fakeInstall(version, (err, v) => {
+    installNode(version, () => {}, (err, v) => {
       if (err) {
         console.log(err)
         domElement('#installing .error-message').style.display = 'block'
