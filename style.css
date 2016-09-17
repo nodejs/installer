@@ -148,6 +148,7 @@ pre, code, code span {
 pre[class*="language-"] {
   overflow: scroll !important;
   padding: 0em 1em;
+  font-size: 0.9em;
 }
 
 /******************/
