@@ -70,7 +70,7 @@ function installEvent (e) {
     installing.start()
     // gets version number from button text
     const version = this.children[1].innerHTML.slice(1)
-    installNode(version, () => {}, (err, v) => {
+    installNode(version, (err, v) => {
       if (err) {
         console.log(err)
         domElement('#installing .error-message').style.display = 'block'
