@@ -7,6 +7,7 @@ const getInstalledVersion = require('./lib/check-node')
 const loadVersions = require('./lib/load.js')
 const installNode = require('./lib/install')
 const getExample = require('./lib/examples')
+const { clipboard, shell } = require('electron')
 
 // utility
 const errIcon = '<i class="fa fa-exclamation-triangle"></i>'
@@ -103,3 +104,14 @@ getExample((title, code) => {
 })
 
 domElement('#error-button').addEventListener('click', installErrorEvent)
+
+function copyErrorInClipboard (e) {
+  e.preventDefault()
+  clipboard.writeText(domElement('#error-text').innerText)
+}
+
+domElement('#error-text').addEventListener('click', copyErrorInClipboard)
+domElement('#error-report').addEventListener('click', function (e) {
+  copyErrorInClipboard(e)
+  shell.openExternal('https://github.com/nodejs/installer/issues/new')
+})
