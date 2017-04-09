@@ -17,11 +17,11 @@ const major = v => v.split('.')[0]
 
 const installing = {
   run: false,
-  start: function () {
+  start() {
     domElement('#installing').style.display = 'block'
     this.run = true
   },
-  done: function () {
+  done() {
     domElement('#installing').style.display = 'none'
     this.run = false
   }
