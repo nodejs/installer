@@ -19,6 +19,10 @@ npm install && npm start
 
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
 
+## To build
+
+This installer can be built for Windows, macOS, and Linux. Calling `npm run make` will create packages for the current platform. On Windows, it will create a `zip` file and self-contained Squirrel installer. On macOS, it will create a `dmg` and `zip` file. On Linux, it will create both a `deb` and a `rpm` package. The configuration for those packages can be found in `package.json`.
+
 ## Tests and Linting
 
 This project uses [StandardJS](http://standardjs.com/) as its style guide.

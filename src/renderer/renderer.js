@@ -4,7 +4,7 @@
 const semver = require('semver')
 
 const getInstalledVersion = require('./lib/check-node')
-const loadVersions = require('./lib/load.js')
+const loadVersions = require('./lib/load')
 const installNode = require('./lib/install')
 const getExample = require('./lib/examples')
 
@@ -17,11 +17,11 @@ const major = v => v.split('.')[0]
 
 const installing = {
   run: false,
-  start() {
+  start () {
     domElement('#installing').style.display = 'block'
     this.run = true
   },
-  done() {
+  done () {
     domElement('#installing').style.display = 'none'
     this.run = false
   }
