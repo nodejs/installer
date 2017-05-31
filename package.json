@@ -1,9 +1,45 @@
 {
   "name": "installer",
   "version": "0.1.0",
-  "description": "**Clone and run for a quick way to see an Electron in action.**",
-  "main": "main.js",
+  "productName": "node-installer",
+  "description": "An Electron application for installing, updating and managing versions of Node.js.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "test": "standard"
+  },
+  "keywords": [],
+  "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (http://www.mikealrogers.com)",
+  "license": "Apache-2.0",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel",
+          "zip"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "appBundleId": "org.nodejs.installer"
+      },
+      "electronWinstallerConfig": {
+        "name": "installer"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {}
+    }
+  },
   "dependencies": {
+    "electron-compile": "^6.4.1",
     "electron-sudo": "^3.0.8",
     "flexboxgrid": "^6.3.1",
     "font-awesome": "^4.6.3",
@@ -15,20 +51,7 @@
     "yo-yo": "^1.2.2"
   },
   "devDependencies": {
-    "electron-builder": "^5.10.5",
-    "electron-prebuilt": "^1.2.5",
+    "electron-prebuilt-compile": "1.6.11",
     "standard": "^7.1.2"
-  },
-  "scripts": {
-    "start": "electron .",
-    "pack": "build --dir",
-    "dist": "build",
-    "test": "standard"
-  },
-  "keywords": [],
-  "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (http://www.mikealrogers.com)",
-  "license": "Apache-2.0",
-  "build": {
-    "appId": "org.nodejs.installer"
   }
 }

@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8">
     <title>Node.js Installer</title>
-    <link rel="stylesheet" href="./node_modules/flexboxgrid/dist/flexboxgrid.min.css" type="text/css">
-    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="./node_modules/prismjs/themes/prism.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" href="../../node_modules/flexboxgrid/dist/flexboxgrid.min.css" type="text/css">
+    <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../../node_modules/prismjs/themes/prism.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../static/style.css"/>
   </head>
   <body>
     <div id="main" class="row">
       <div class="col-xs-4 left-panel background-green">
         <div class="row">
           <div class="col-xs-12 node-image-container">
-            <img id="node-logo" src="./images/nodejs-new-white-bw.png" alt="node logo" onclick="require('electron').shell.openExternal('https://nodejs.org/en/')"/>
+            <img id="node-logo" src="../../static/images/nodejs-new-white-bw.png" alt="node logo" onclick="require('electron').shell.openExternal('https://nodejs.org/en/')"/>
           </div>
         </div>
         <div class="row">
@@ -21,7 +21,7 @@
             <p id="installed-version">Installed version: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></p>
           </div>
           <div class="col-xs-12">
-            <a href="#" id="update-to" class="version-button"><img src="./images/lgoonodejswhite.png" alt="" /> Update to: <span></span></a>
+            <a href="#" id="update-to" class="version-button"><img src="../../static/images/lgoonodejswhite.png" alt="" /> Update to: <span></span></a>
           </div>
         </div>
         <div class="row bottom">
@@ -29,17 +29,17 @@
             <p>Latest versions:</p>
           </div>
           <div class="col-xs-12">
-            <a href="#" id="install-stable" class="version-button"><img src="./images/lgoonodejswhite.png" alt="" /> Install stable: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
+            <a href="#" id="install-stable" class="version-button"><img src="../../static/images/lgoonodejswhite.png" alt="" /> Install stable: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
           </div>
           <div class="col-xs-12">
-            <a href="#" id="install-latest" class="version-button"><img src="./images/lgoonodejswhite.png" alt="" /> Install current: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
+            <a href="#" id="install-latest" class="version-button"><img src="../../static/images/lgoonodejswhite.png" alt="" /> Install current: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
           </div>
         </div>
       </div>
       <div class="col-xs-8 right-panel">
         <div class="row">
           <div class="col-xs-12 school-image-container">
-            <img src="./images/schoolhouse.svg" alt="" />
+            <img src="../../static/images/schoolhouse.svg" alt="" />
           </div>
         </div>
         <div class="row">
@@ -76,7 +76,7 @@
           <a id="error-button" href="#" class="color-red">Return to installer</a>
       </div>
     </div>
-    <script src="./node_modules/prismjs/prism.js"></script>
-    <script src="./browser.js"></script>
+    <script src="../../node_modules/prismjs/prism.js"></script>
+    <script src="./renderer.js"></script>
   </body>
 </html>
