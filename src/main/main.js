@@ -1,8 +1,8 @@
-const electron = require('electron')
-// Module to control application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+const { app, BrowserWindow } = require('electron')
+
+// If the executing binary is named `electron`, we're running
+// in developer mode - otherwise, it'd be `installer`.
+const isDevMode = process.execPath.match(/[\\/]electron/)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -18,6 +18,10 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
+  // Open the DevTools, if we're in developer mode
+  if (isDevMode) {
+    mainWindow.webContents.openDevTools()
+  }
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
