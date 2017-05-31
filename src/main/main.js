@@ -8,32 +8,33 @@ const isDevMode = process.execPath.match(/[\\/]electron/)
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+/**
+ * This is the main method executed in the main process.
+ */
 function createWindow () {
-  // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 700,
-    resizable: false
+    resizable: false,
+    show: false
   })
 
-  // and load the index.html of the app.
+  // Load the index.html of the app. Once loaded, we'll display
+  // the window.
   mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
+  mainWindow.webContents.on('did-finish-load', () => mainWindow.show())
+
   // Open the DevTools, if we're in developer mode
   if (isDevMode) {
     mainWindow.webContents.openDevTools()
   }
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
   // Chromium drag and drop events tend to navigate the app away, making the
   // app impossible to use without restarting. These events should be prevented.
   mainWindow.webContents.on('will-navigate', (event) => event.preventDefault())
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null
   })
 }
@@ -59,6 +60,3 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
