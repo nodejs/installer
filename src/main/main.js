@@ -21,6 +21,9 @@ function createWindow () {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
+  // Chromium drag and drop events tend to navigate the app away, making the
+  // app impossible to use without restarting. These events should be prevented.
+  mainWindow.webContents.on('will-navigate', (event) => event.preventDefault())
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
