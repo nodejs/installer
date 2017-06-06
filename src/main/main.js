@@ -4,6 +4,9 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+// Module setting the basic error handler
+const errors = require('./lib/error-handler')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -15,6 +18,9 @@ function createWindow () {
     height: 700,
     resizable: false
   })
+
+  // Configure basic errors for the mainWindow
+  errors.setupErrorHandler(mainWindow)
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
