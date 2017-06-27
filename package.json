@@ -1,7 +1,7 @@
 {
   "name": "installer",
   "version": "0.1.0",
-  "productName": "node-installer",
+  "productName": "Node.js Installer",
   "description": "An Electron application for installing, updating and managing versions of Node.js.",
   "main": "src/main/main.js",
   "scripts": {
