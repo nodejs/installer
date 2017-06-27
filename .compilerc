@@ -1,0 +1,14 @@
+{
+  "env": {
+    "development": {
+      "application/javascript": {
+        "passthrough": true
+      }
+    },
+    "production": {
+      "application/javascript": {
+        "passthrough": true
+      }
+    }
+  }
+}
