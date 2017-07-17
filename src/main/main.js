@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron')
+const { windowManager } = require('./window-manager')
 
 // If the executing binary is named `electron`, we're running
 // in developer mode - otherwise, it'd be `installer`.
@@ -11,13 +12,8 @@ let mainWindow
 /**
  * This is the main method executed in the main process.
  */
-function createWindow () {
-  mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 700,
-    resizable: false,
-    show: false
-  })
+function onReady () {
+  mainWindow = windowManager.createMainWindow()
 
   // Load the index.html of the app. Once loaded, we'll display
   // the window.
@@ -39,24 +35,28 @@ function createWindow () {
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+function main () {
+  // This method will be called when Electron has finished
+  // initialization and is ready to create browser windows.
+  // Some APIs can only be used after this event occurs.
+  app.on('ready', onReady)
 
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+  // Quit when all windows are closed.
+  app.on('window-all-closed', () => {
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+  })
 
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
+  app.on('activate', () => {
+    // On OS X it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (mainWindow === null) {
+      createWindow()
+    }
+  })
+}
+
+main()
