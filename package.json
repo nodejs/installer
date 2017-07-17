@@ -39,18 +39,22 @@
         "appCopyright": "Copyright © 2017 Node.js Foundation",
         "name": "Node.js Installer",
         "versionString": {
-            "CompanyName": "Node.js Foundation",
-            "FileDescription": "Node.js Installer",
-            "ProductName": "Node.js Installer",
-            "InternalName": "node-installer"
+          "CompanyName": "Node.js Foundation",
+          "FileDescription": "Node.js Installer",
+          "ProductName": "Node.js Installer",
+          "InternalName": "node-installer"
         },
         "protocols": [
-            {
-                "name": "Node.js Installer",
-                "schemes": ["nodejs"]
-            }
+          {
+            "name": "Node.js Installer",
+            "schemes": [
+              "nodejs"
+            ]
+          }
         ],
-        "protocol": ["nodejs"],
+        "protocol": [
+          "nodejs"
+        ],
         "protocolName": "Node.js Installer",
         "overwrite": true,
         "icon": "assets/icons/node-installer"
@@ -76,7 +80,7 @@
   },
   "devDependencies": {
     "electron-forge": "^3.0.5",
-    "electron-prebuilt-compile": "1.7.3",
+    "electron-prebuilt-compile": "^1.7.4",
     "standard": "^10.0.2"
   }
 }
