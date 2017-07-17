@@ -1,5 +1,7 @@
-const { app, BrowserWindow } = require('electron')
+const { app } = require('electron')
+
 const { windowManager } = require('./window-manager')
+const { setupApplicationMenu } = require('./window-menu')
 
 // If the executing binary is named `electron`, we're running
 // in developer mode - otherwise, it'd be `installer`.
@@ -33,6 +35,8 @@ function onReady () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  setupApplicationMenu()
 }
 
 function main () {
