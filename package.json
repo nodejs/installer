@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "electron-forge": "^3.0.5",
-    "electron-prebuilt-compile": "1.6.11",
+    "electron-prebuilt-compile": "1.7.3",
     "standard": "^10.0.2"
   }
 }
