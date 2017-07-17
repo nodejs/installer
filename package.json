@@ -34,7 +34,26 @@
         ]
       },
       "electronPackagerConfig": {
-        "appBundleId": "org.nodejs.installer"
+        "appBundleId": "org.nodejs.installer",
+        "appCategoryType": "public.app-category.productivity",
+        "appCopyright": "Copyright © 2017 Node.js Foundation",
+        "name": "Node.js Installer",
+        "versionString": {
+            "CompanyName": "Node.js Foundation",
+            "FileDescription": "Node.js Installer",
+            "ProductName": "Node.js Installer",
+            "InternalName": "node-installer"
+        },
+        "protocols": [
+            {
+                "name": "Node.js Installer",
+                "schemes": ["nodejs"]
+            }
+        ],
+        "protocol": ["nodejs"],
+        "protocolName": "Node.js Installer",
+        "overwrite": true,
+        "icon": "assets/icons/node-installer"
       },
       "electronWinstallerConfig": {
         "name": "installer"
