@@ -79,8 +79,9 @@
     "yo-yo": "^1.4.1"
   },
   "devDependencies": {
+    "devtron": "^1.4.0",
     "electron-forge": "^3.0.5",
-    "electron-prebuilt-compile": "^1.7.4",
+    "electron-prebuilt-compile": "1.7.4",
     "standard": "^10.0.2"
   }
 }
