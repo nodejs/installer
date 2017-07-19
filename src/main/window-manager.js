@@ -1,4 +1,5 @@
 const { BrowserWindow } = require('electron')
+const windowStateKeeper = require('electron-window-state');
 
 class WindowManager {
   /**
@@ -8,12 +9,24 @@ class WindowManager {
    * @memberof WindowManager
    */
   createMainWindow () {
-    return new BrowserWindow({
+    const mainWindowState = windowStateKeeper({
+      defaultWidth: 1000,
+      defaultHeight: 700
+    })
+
+    const browserWindow = new BrowserWindow({
       width: 1000,
       height: 700,
-      resizable: false,
-      show: false
+      show: false,
+      x: mainWindowState.x,
+      y: mainWindowState.y,
+      width: mainWindowState.width,
+      height: mainWindowState.height
     })
+
+    mainWindowState.manage(browserWindow)
+
+    return browserWindow
   }
 }
 

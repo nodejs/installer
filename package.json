@@ -70,6 +70,7 @@
     "electron-compile": "^6.4.1",
     "electron-log": "^2.2.7",
     "electron-sudo": "^4.0.12",
+    "electron-window-state": "^4.1.1",
     "flexboxgrid": "^6.3.1",
     "font-awesome": "^4.7.0",
     "once": "^1.4.0",

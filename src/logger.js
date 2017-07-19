@@ -44,7 +44,12 @@ class Logger {
   }
 
   debug(...args) {
-    return this.module.debug(...args)
+    if (this.module.debug) {
+      return this.module.debug(...args)
+    } else {
+      // The main process doesn't have console.debug
+      return this.module.info(...args)
+    }
   }
 }
 
