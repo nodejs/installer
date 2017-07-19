@@ -4,6 +4,7 @@ const { windowManager } = require('./window-manager')
 const { setupApplicationMenu } = require('./window-menu')
 const { DeveloperFeatures } = require('./developer')
 const { isDevMode } = require('../utils/is-dev-mode')
+const { logger } = require('../logger')
 
 class App {
   constructor () {
@@ -19,6 +20,7 @@ class App {
 
     // Quit when all windows are closed.
     app.on('window-all-closed', () => {
+      logger.debug('Main: All windows closed, will now close app')
       // On OS X it is common for applications and their menu bar
       // to stay active until the user quits explicitly with Cmd + Q
       if (process.platform !== 'darwin') {
@@ -27,6 +29,7 @@ class App {
     })
 
     app.on('activate', () => {
+      logger.debug('Main: App activated')
       // On OS X it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (this.mainWindow === null) {
@@ -37,9 +40,11 @@ class App {
 
   onReady () {
     if (isDevMode) {
+      logger.debug('Main: Detected development mode, now activating developer features')
       this.developerFeatures = new DeveloperFeatures()
     }
 
+    logger.info('App ready, creating window and loading renderer')
     const mainWindow = windowManager.createMainWindow()
 
     // Load the index.html of the app. Once loaded, we'll display

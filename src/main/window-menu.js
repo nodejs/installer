@@ -1,5 +1,6 @@
 const { app, shell, Menu } = require('electron')
 const { isDevMode } = require('../utils/is-dev-mode')
+const { logger } = require('../logger')
 
 function getApplicationMenuTemplate () {
   const template = [
@@ -188,6 +189,7 @@ function insertProcessManager (template) {
 }
 
 function setupApplicationMenu () {
+  logger.debug('WindowMenu: Creating application menu')
   const template = getApplicationMenuTemplate()
 
   // Insert additional items
