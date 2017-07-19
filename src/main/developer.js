@@ -1,9 +1,9 @@
-const { BrowserWindow } = require('electron')
-const devtron = require('devtron')
+import { BrowserWindow } from 'electron'
+import devtron from 'devtron'
 
-const { logger } = require('../logger')
+import { logger } from '../logger'
 
-class DeveloperFeatures {
+export class DeveloperFeatures {
   constructor () {
     this.extensions = BrowserWindow.getDevToolsExtensions()
     this.installDevtron()
@@ -18,5 +18,3 @@ class DeveloperFeatures {
     }
   }
 }
-
-module.exports = { DeveloperFeatures }

@@ -81,6 +81,7 @@
     "yo-yo": "^1.4.1"
   },
   "devDependencies": {
+    "babel-preset-node7": "^1.5.0",
     "devtron": "^1.4.0",
     "electron-forge": "^3.0.5",
     "electron-prebuilt-compile": "1.7.4",

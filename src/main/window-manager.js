@@ -1,5 +1,5 @@
-const { BrowserWindow } = require('electron')
-const windowStateKeeper = require('electron-window-state');
+import { BrowserWindow } from 'electron'
+import windowStateKeeper from 'electron-window-state'
 
 class WindowManager {
   /**
@@ -15,8 +15,6 @@ class WindowManager {
     })
 
     const browserWindow = new BrowserWindow({
-      width: 1000,
-      height: 700,
       show: false,
       x: mainWindowState.x,
       y: mainWindowState.y,
@@ -30,6 +28,4 @@ class WindowManager {
   }
 }
 
-const windowManager = new WindowManager()
-
-module.exports = { windowManager }
+export const windowManager = new WindowManager()

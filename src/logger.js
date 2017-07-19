@@ -1,6 +1,6 @@
-const log = require('electron-log');
+import log from 'electron-log'
 
-const { isDevMode } = require('./utils/is-dev-mode')
+import { isDevMode } from './utils/is-dev-mode'
 
 /**
  * A logger that ensures logging to file (if in production mode)
@@ -17,7 +17,7 @@ class Logger {
   /**
    * Creates an instance of Logger.
    */
-  constructor() {
+  constructor () {
     // If we're in production mode, we'll log to file using
     // electron-log. By default, the module will only write
     // warn and error messages.
@@ -31,19 +31,19 @@ class Logger {
     }
   }
 
-  warn(...args) {
+  warn (...args) {
     return this.module.warn(...args)
   }
 
-  error(...args) {
+  error (...args) {
     return this.module.error(...args)
   }
 
-  info(...args) {
+  info (...args) {
     return this.module.info(...args)
   }
 
-  debug(...args) {
+  debug (...args) {
     if (this.module.debug) {
       return this.module.debug(...args)
     } else {
@@ -53,6 +53,4 @@ class Logger {
   }
 }
 
-const logger = new Logger()
-
-module.exports = { logger }
+export const logger = new Logger()

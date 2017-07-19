@@ -1,10 +1,10 @@
-const { app } = require('electron')
+import { app } from 'electron'
 
-const { windowManager } = require('./window-manager')
-const { setupApplicationMenu } = require('./window-menu')
-const { DeveloperFeatures } = require('./developer')
-const { isDevMode } = require('../utils/is-dev-mode')
-const { logger } = require('../logger')
+import { windowManager } from './window-manager'
+import { setupApplicationMenu } from './window-menu'
+import { DeveloperFeatures } from './developer'
+import { isDevMode } from '../utils/is-dev-mode'
+import { logger } from '../logger'
 
 class App {
   constructor () {

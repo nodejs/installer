@@ -1,14 +1,12 @@
 'use strict'
 /* globals alert, Prism */
 
-const semver = require('semver')
+import semver from 'semver'
 
-const getInstalledVersion = require('./lib/check-node')
-const loadVersions = require('./lib/load')
-const installNode = require('./lib/install')
-const getExample = require('./lib/examples')
-
-require('./developer')
+import getInstalledVersion from './lib/check-node'
+import loadVersions from './lib/load'
+import installNode from './lib/install'
+import getExample from './lib/examples'
 
 // utility
 const errIcon = '<i class="fa fa-exclamation-triangle"></i>'

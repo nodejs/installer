@@ -1,6 +1,6 @@
-const { app, shell, Menu } = require('electron')
-const { isDevMode } = require('../utils/is-dev-mode')
-const { logger } = require('../logger')
+import { app, shell, Menu } from 'electron'
+import { isDevMode } from '../utils/is-dev-mode'
+import { logger } from '../logger'
 
 function getApplicationMenuTemplate () {
   const template = [
@@ -171,7 +171,7 @@ function insertAppMenu (template) {
  * @param {Object} template
  * @returns {Object} Electron menu template
  */
-function insertProcessManager (template) {
+export function insertProcessManager (template) {
   if (isDevMode()) {
     const viewMenu = template.find(v => v.label === 'View')
 
@@ -188,7 +188,7 @@ function insertProcessManager (template) {
   return template
 }
 
-function setupApplicationMenu () {
+export function setupApplicationMenu () {
   logger.debug('WindowMenu: Creating application menu')
   const template = getApplicationMenuTemplate()
 
@@ -200,5 +200,3 @@ function setupApplicationMenu () {
 
   Menu.setApplicationMenu(builtMenu)
 }
-
-module.exports = { setupApplicationMenu, getApplicationMenuTemplate }
