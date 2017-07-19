@@ -1,4 +1,5 @@
 const { app, shell, Menu } = require('electron')
+const { isDevMode } = require('../utils/is-dev-mode')
 
 function getApplicationMenuTemplate () {
   const template = [
@@ -102,6 +103,16 @@ function getApplicationMenuTemplate () {
     }
   ]
 
+  return template
+}
+
+/**
+ * Inserts the typical "Installer" menu found on macOS
+ *
+ * @param {Object} template
+ * @returns {Object} Electron menu template
+ */
+function insertAppMenu (template) {
   if (process.platform === 'darwin') {
     const name = app.getName()
     template.unshift({
@@ -153,11 +164,39 @@ function getApplicationMenuTemplate () {
   return template
 }
 
+/**
+ * Inserts the Electron process manager (if running in dev mode)
+ *
+ * @param {Object} template
+ * @returns {Object} Electron menu template
+ */
+function insertProcessManager (template) {
+  if (isDevMode()) {
+    const viewMenu = template.find(v => v.label === 'View')
+
+    if (viewMenu && viewMenu.submenu) {
+      viewMenu.submenu.push({
+        label: 'Open Process Manager',
+        click (_item, _focusedWindow) {
+          require('electron-process-manager').openProcessManager()
+        }
+      })
+    }
+  }
+
+  return template
+}
+
 function setupApplicationMenu () {
   const template = getApplicationMenuTemplate()
+
+  // Insert additional items
+  insertAppMenu(template)
+  insertProcessManager(template)
+
   const builtMenu = Menu.buildFromTemplate(template)
 
   Menu.setApplicationMenu(builtMenu)
 }
 
-module.exports = { setupApplicationMenu, getApplicationMenuTemplate}
+module.exports = { setupApplicationMenu, getApplicationMenuTemplate }

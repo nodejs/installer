@@ -8,6 +8,8 @@ const loadVersions = require('./lib/load')
 const installNode = require('./lib/install')
 const getExample = require('./lib/examples')
 
+require('./developer')
+
 // utility
 const errIcon = '<i class="fa fa-exclamation-triangle"></i>'
 const domElement = e => document.querySelector(e)
