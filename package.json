@@ -8,7 +8,9 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "test": "standard"
+    "lint": "standard",
+    "spec": "ava",
+    "test": "standard && ava"
   },
   "keywords": [],
   "contributors": [
@@ -66,6 +68,22 @@
       "electronInstallerRedhat": {}
     }
   },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "files": [
+      "spec/**/*.js",
+      "!spec/__mocks__/**/*",
+      "!spec/setup.js"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": [
+      "node7"
+    ]
+  },
   "dependencies": {
     "electron-compile": "^6.4.1",
     "electron-log": "^2.2.7",
@@ -81,11 +99,16 @@
     "yo-yo": "^1.4.1"
   },
   "devDependencies": {
+    "ava": "^0.21.0",
     "babel-preset-node7": "^1.5.0",
+    "babel-register": "^6.24.1",
     "devtron": "^1.4.0",
     "electron-forge": "^3.0.5",
     "electron-prebuilt-compile": "1.7.4",
     "electron-process-manager": "0.0.4",
+    "mockery": "^2.1.0",
+    "sinon": "^2.3.8",
+    "spectron": "^3.7.2",
     "standard": "^10.0.2"
   }
 }

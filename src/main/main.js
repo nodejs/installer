@@ -6,7 +6,7 @@ import { DeveloperFeatures } from './developer'
 import { isDevMode } from '../utils/is-dev-mode'
 import { logger } from '../logger'
 
-class App {
+export class App {
   constructor () {
     // Keep a reference of the window object, if you don't, the window will
     // be closed automatically when the JavaScript object is garbage collected.
