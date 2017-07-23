@@ -84,6 +84,9 @@
       "node7"
     ]
   },
+  "standard": {
+    "parser": "babel-eslint"
+  },
   "dependencies": {
     "electron-compile": "^6.4.1",
     "electron-log": "^2.2.7",
@@ -94,13 +97,19 @@
     "once": "^1.4.0",
     "osenv": "^0.1.4",
     "prismjs": "^1.6.0",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "request": "^2.81.0",
     "semver": "^5.3.0",
     "yo-yo": "^1.4.1"
   },
   "devDependencies": {
     "ava": "^0.21.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-node7": "^1.5.0",
+    "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "devtron": "^1.4.0",
     "electron-devtools-installer": "^2.2.0",
@@ -108,6 +117,7 @@
     "electron-prebuilt-compile": "1.7.4",
     "electron-process-manager": "0.0.4",
     "mockery": "^2.1.0",
+    "react-hot-loader": "^3.0.0-beta.6",
     "sinon": "^2.3.8",
     "spectron": "^3.7.2",
     "standard": "^10.0.2"
