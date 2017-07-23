@@ -2,12 +2,17 @@
   "env": {
     "development": {
       "application/javascript": {
-        "passthrough": true
+        "presets": ["node7"],
+        "sourceMaps": "inline"
+      },
+      "text/less": {
+        "dumpLineNumbers": "comments"
       }
     },
     "production": {
       "application/javascript": {
-        "passthrough": true
+        "presets": ["node7"],
+        "sourceMaps": "none"
       }
     }
   }

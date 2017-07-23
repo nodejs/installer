@@ -14,4 +14,3 @@ module.exports = (cb) => {
     cb(null, versions(index))
   })
 }
-

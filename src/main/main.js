@@ -1,62 +1,72 @@
-const { app, BrowserWindow } = require('electron')
+import { app } from 'electron'
 
-// If the executing binary is named `electron`, we're running
-// in developer mode - otherwise, it'd be `installer`.
-const isDevMode = process.execPath.match(/[\\/]electron/)
+import { windowManager } from './window-manager'
+import { setupApplicationMenu } from './window-menu'
+import { DeveloperFeatures } from './developer'
+import { isDevMode } from '../utils/is-dev-mode'
+import { logger } from '../logger'
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+export class App {
+  constructor () {
+    // Keep a reference of the window object, if you don't, the window will
+    // be closed automatically when the JavaScript object is garbage collected.
+    this.mainWindow = null
+    this.developerFeatures = null
 
-/**
- * This is the main method executed in the main process.
- */
-function createWindow () {
-  mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 700,
-    resizable: false,
-    show: false
-  })
+    // This method will be called when Electron has finished
+    // initialization and is ready to create browser windows.
+    // Some APIs can only be used after this event occurs.
+    app.on('ready', this.onReady)
 
-  // Load the index.html of the app. Once loaded, we'll display
-  // the window.
-  mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
-  mainWindow.webContents.on('did-finish-load', () => mainWindow.show())
+    // Quit when all windows are closed.
+    app.on('window-all-closed', () => {
+      logger.debug('Main: All windows closed, will now close app')
+      // On OS X it is common for applications and their menu bar
+      // to stay active until the user quits explicitly with Cmd + Q
+      if (process.platform !== 'darwin') {
+        app.quit()
+      }
+    })
 
-  // Open the DevTools, if we're in developer mode
-  if (isDevMode) {
-    mainWindow.webContents.openDevTools()
+    app.on('activate', () => {
+      logger.debug('Main: App activated')
+      // On OS X it's common to re-create a window in the app when the
+      // dock icon is clicked and there are no other windows open.
+      if (this.mainWindow === null) {
+        this.onReady()
+      }
+    })
   }
 
-  // Chromium drag and drop events tend to navigate the app away, making the
-  // app impossible to use without restarting. These events should be prevented.
-  mainWindow.webContents.on('will-navigate', (event) => event.preventDefault())
+  onReady () {
+    if (isDevMode) {
+      logger.debug('Main: Detected development mode, now activating developer features')
+      this.developerFeatures = new DeveloperFeatures()
+    }
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
+    logger.info('App ready, creating window and loading renderer')
+    const mainWindow = windowManager.createMainWindow()
+
+    // Load the index.html of the app. Once loaded, we'll display
+    // the window.
+    mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
+    mainWindow.webContents.on('did-finish-load', () => mainWindow.show())
+
+    // Chromium drag and drop events tend to navigate the app away, making the
+    // app impossible to use without restarting. These events should be prevented.
+    mainWindow.webContents.on('will-navigate', (event) => event.preventDefault())
+
+    // Emitted when the window is closed.
+    mainWindow.on('closed', () => {
+      this.mainWindow = null
+    })
+
+    // This creates the application's main menu (on macOS found in the menu bar, for instance)
+    setupApplicationMenu()
+
+    this.mainWindow = mainWindow
+  }
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
-
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
+// eslint-disable-next-line
+const installer = new App()
