@@ -103,6 +103,7 @@
     "babel-preset-node7": "^1.5.0",
     "babel-register": "^6.24.1",
     "devtron": "^1.4.0",
+    "electron-devtools-installer": "^2.2.0",
     "electron-forge": "^3.0.5",
     "electron-prebuilt-compile": "1.7.4",
     "electron-process-manager": "0.0.4",

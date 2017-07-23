@@ -52,12 +52,19 @@ class BrowserWindow extends EventEmitter {
   }
 }
 
+class CommandLine {
+  constructor () {
+    this.appendSwitch = sinon.stub()
+  }
+}
+
 class App extends EventEmitter {
   constructor () {
     super()
 
     this.getName = sinon.stub()
-    this.getPah = sinon.stub()
+    this.getPath = sinon.stub()
+    this.commandLine = new CommandLine()
   }
 }
 
@@ -90,7 +97,8 @@ export const electronMock = {
     getCurrentWindow: sinon.stub(),
     require: sinon.stub(),
     Menu: MockMenu,
-    MenuItem: MockMenuItem
+    MenuItem: MockMenuItem,
+    app: new App()
   },
   ipcRenderer: {
     send: sinon.stub()
@@ -104,3 +112,5 @@ export const electronMock = {
   screen: new Screen(),
   BrowserWindow
 }
+
+export const electronMainMock = Object.assign({}, electronMock, { remote: null })
