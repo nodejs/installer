@@ -19,7 +19,8 @@ class WindowManager {
       x: mainWindowState.x,
       y: mainWindowState.y,
       width: mainWindowState.width,
-      height: mainWindowState.height
+      height: mainWindowState.height,
+      minHeight: 450
     })
 
     mainWindowState.manage(browserWindow)
