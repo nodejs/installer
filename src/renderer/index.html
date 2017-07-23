@@ -6,77 +6,23 @@
     <link rel="stylesheet" href="../../node_modules/flexboxgrid/dist/flexboxgrid.min.css" type="text/css">
     <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../../node_modules/prismjs/themes/prism.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../../static/style.css"/>
+    <link rel="stylesheet" type="text/css" href="./less/core.less"/>
   </head>
   <body>
-    <div id="main" class="row">
-      <div class="col-xs-4 left-panel background-green">
-        <div class="row">
-          <div class="col-xs-12 node-image-container">
-            <img id="node-logo" src="../../static/images/nodejs-new-white-bw.png" alt="node logo" onclick="require('electron').shell.openExternal('https://nodejs.org/en/')"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <p id="installed-version">Installed version: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></p>
-          </div>
-          <div class="col-xs-12">
-            <a href="#" id="update-to" class="version-button"><img src="../../static/images/lgoonodejswhite.png" alt="" /> Update to: <span></span></a>
-          </div>
-        </div>
-        <div class="row bottom">
-          <div class="col-xs-12">
-            <p>Latest versions:</p>
-          </div>
-          <div class="col-xs-12">
-            <a href="#" id="install-stable" class="version-button"><img src="../../static/images/lgoonodejswhite.png" alt="" /> Install stable: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
-          </div>
-          <div class="col-xs-12">
-            <a href="#" id="install-latest" class="version-button"><img src="../../static/images/lgoonodejswhite.png" alt="" /> Install current: <span><i class="fa fa-spinner fa-pulse fa-fw"></i></span></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-8 right-panel">
-        <div class="row">
-          <div class="col-xs-12 school-image-container">
-            <img src="../../static/images/schoolhouse.svg" alt="" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <h3 class="title color-green">Educational resources:</h3>
-            <p class="text">Open source workshops that teach web software skills.<br />Do them on your own or at a workshop nearby.<br /><a href="#" onclick="require('electron').shell.openExternal('http://nodeschool.io/')">http://nodeschool.io/</a></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-              <h4 id="code-title" class="title color-green">A simple http file server:</h4>
-            <pre id="code-container">
-              <code id="code-example" class="language-javascript">
-              </code>
-            </pre>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="installing" class="row">
-      <div class="col-xs-12">
-        <h1 class="color-green">Installing Node.js</h1>
-      </div>
-      <div class="col-xs-12">
-        <div class="sk-folding-cube">
-          <div class="sk-cube1 sk-cube"></div>
-          <div class="sk-cube2 sk-cube"></div>
-          <div class="sk-cube4 sk-cube"></div>
-          <div class="sk-cube3 sk-cube"></div>
-        </div>
-      </div>
-      <div class="col-xs-offset-3 col-xs-6 error-message">
-          <p id="error-text" class="color-red"></p>
-          <a id="error-button" href="#" class="color-red">Return to installer</a>
-      </div>
-    </div>
-    <script src="../../node_modules/prismjs/prism.js"></script>
-    <script src="./renderer.js"></script>
+    <div id="app"></div>
+    <script>
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import 'prismjs'
+
+    const render = () => {
+      const { App } = require('./components/App')
+      ReactDOM.render(<App />, document.querySelector('#app'))
+    }
+    render()
+    if (module.hot) {
+      module.hot.accept(render)
+    }
+    </script>
   </body>
 </html>

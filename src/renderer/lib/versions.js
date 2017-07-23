@@ -1,4 +1,4 @@
-const semver = require('semver')
+import semver from 'semver'
 
 function forceSort (dict) {
   function sorter (v1, v2) {
@@ -11,50 +11,46 @@ function forceSort (dict) {
   return keys.map((k) => dict[k])
 }
 
-function Versions (index) {
-  this.index = index
-  this.majors = {}
-  this.lts = {}
-  this.load()
-}
+class Versions {
+  constructor (raw) {
+    this.raw = raw
+    this.majors = {}
+    this.lts = {}
+    this.load()
+  }
 
-Versions.prototype.load = function () {
-  const index = this.index
-  index.forEach((v) => {
-    var m = semver.major(v.version)
-    if (!this.majors[m]) this.majors[m] = {}
-    this.majors[m][v.version] = v
-    if (v.lts) {
-      if (!this.lts[m]) this.lts[m] = {}
-      this.lts[m][v.version] = v
+  load () {
+    const raw = this.raw
+    for (const version of raw) {
+      const major = semver.major(version.version)
+
+      if (!this.majors[major]) this.majors[major] = {}
+      this.majors[major][version.version] = version
+      if (version.lts) {
+        if (!this.lts[major]) this.lts[major] = {}
+        this.lts[major][version.version] = version
+      }
     }
-  })
-  this._latest = 0
-  for (let k in this.majors) {
-    this.majors[k] = forceSort(this.majors[k])
-    if (parseInt(k) > this._latest) this._latest = parseInt(k)
+
+    this._latest = 0
+    for (const majorN in this.majors) {
+      this.majors[majorN] = forceSort(this.majors[majorN])
+      if (parseInt(majorN, 10) > this._latest) this._latest = parseInt(majorN, 10)
+    }
+    this._latestLTS = 0
+    for (let k in this.lts) {
+      this.lts[k] = forceSort(this.lts[k])
+      if (parseInt(k) > this._latestLTS) this._latestLTS = parseInt(k)
+    }
   }
-  this._latestLTS = 0
-  for (let k in this.lts) {
-    this.lts[k] = forceSort(this.lts[k])
-    if (parseInt(k) > this._latestLTS) this._latestLTS = parseInt(k)
+
+  get latest () {
+    return this.majors[this._latest][0]
+  }
+
+  get latestLTS () {
+    return this.lts[this._latestLTS][0]
   }
 }
 
-Versions.prototype.latest = function (version) {
-  let major
-  if (!version) major = this._latest
-  else major = semver.major(version)
-  if (!this.majors[major]) major = this._latest
-  return this.majors[major][0]
-}
-
-Versions.prototype.latestLTS = function (version) {
-  let major
-  if (!version) major = this._latestLTS
-  else major = semver.major(version)
-  if (!this.lts[major]) major = this._latestLTS
-  return this.lts[major][0]
-}
-
-module.exports = index => new Versions(index)
+module.exports = raw => new Versions(raw)

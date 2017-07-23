@@ -42,6 +42,5 @@ fs.readFile(file, function (err, contents) {
 `}]
 
 module.exports = (callback) => {
-  const { title, code } = examples[Math.floor(Math.random() * examples.length)]
-  callback(title, code)
+  callback(null, examples[Math.floor(Math.random() * examples.length)])
 }
