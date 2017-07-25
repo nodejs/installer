@@ -2,7 +2,7 @@
 // It's a plugin for editors - if you don't use Wallaby,
 // you can ignore this file
 
-module.exports = function (wallaby) {
+module.exports = (wallaby) => {
   return {
     files: [
       'src/**/*.js',
