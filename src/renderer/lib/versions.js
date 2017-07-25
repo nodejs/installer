@@ -18,7 +18,7 @@ function Versions (index) {
   this.load()
 }
 
-Versions.prototype.load = function () {
+Versions.prototype.load = () => {
   const index = this.index
   index.forEach((v) => {
     var m = semver.major(v.version)
@@ -41,7 +41,7 @@ Versions.prototype.load = function () {
   }
 }
 
-Versions.prototype.latest = function (version) {
+Versions.prototype.latest = (version) => {
   let major
   if (!version) major = this._latest
   else major = semver.major(version)
@@ -49,7 +49,7 @@ Versions.prototype.latest = function (version) {
   return this.majors[major][0]
 }
 
-Versions.prototype.latestLTS = function (version) {
+Versions.prototype.latestLTS = (version) => {
   let major
   if (!version) major = this._latestLTS
   else major = semver.major(version)
