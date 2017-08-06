@@ -1,0 +1,70 @@
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+
+  > .row {
+    margin-bottom: 30px;
+  }
+
+  p {
+    color: #fff;
+    font-size: 1.2em;
+    margin: 0;
+  }
+
+  .installed-version {
+    font-size: 1.3em;
+  }
+
+  .node-image-container {
+    text-align: center;
+
+    img {
+      width: 80%;
+      height: auto;
+      cursor: pointer;
+    }
+  }
+
+  .installed-version,
+  .update-to,
+  .version-button {
+    span {
+      font-weight: normal;
+    }
+  }
+
+  .update-to {
+    display: none;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .version-button {
+    display: inline-block;
+    border: 1px #fff solid;
+    border-radius: 3px;
+    padding: 5px 10px;
+    width: 250px;
+    font-size: 1.3em;
+    margin-top: 10px;
+
+    img {
+      width: 12px;
+      height: auto;
+      margin-right: 10px;
+    }
+  }
+
+  .version-button,
+  .version-button:link,
+  .version-button:visited,
+  .version-button:hover,
+  .version-button:active {
+    color: #fff;
+    text-decoration: none;
+  }
+}

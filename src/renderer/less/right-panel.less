@@ -1,0 +1,46 @@
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  > .row {
+    &:last-child {
+      flex: 1;
+      > div {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .school-image-container {
+    text-align: center;
+  }
+
+  .school-image-container img {
+    width: 280px;
+    height: auto
+  }
+
+  .title {
+    font-weight: normal;
+  }
+
+  .text {
+    line-height: 30px;
+  }
+
+  pre, code, code span {
+    -webkit-user-select: all;
+    user-select: all;
+  }
+
+  pre {
+    overflow: auto;
+    padding: 0em 1em;
+    font-size: 0.9em;
+    height: auto;
+    max-height: 320px;
+  }
+}

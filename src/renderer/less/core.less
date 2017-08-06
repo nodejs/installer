@@ -1,0 +1,44 @@
+* {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+html, body, #app, #main, #installing {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', 'Helvetica', sans-serif;
+  font-weight: lighter;
+  background-color: #f7f7f7;
+  overflow: hidden;
+}
+
+#main {
+  display: flex;
+}
+
+a {
+  text-decoration: none;
+  color: #277cd0;
+}
+
+.color-green {
+  color: #56af57;
+}
+
+.background-green {
+  background-color: #56af57;
+}
+
+.background-red {
+  background-color: #D32F2F;
+}
+
+.color-red {
+  color: #D32F2F;
+}
+
+@import "./panels.less";
+@import "./installing-overlay.less";
+@import "./spinner.less";

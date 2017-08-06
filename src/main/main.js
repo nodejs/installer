@@ -36,6 +36,12 @@ export class App {
         this.onReady()
       }
     })
+
+    // Fancy scrollbars
+    app.commandLine.appendSwitch('enable-smooth-scrolling', '1')
+    app.commandLine.appendSwitch('enable-overlay-scrollbar', '1')
+    // Fix HDPI zoom bug
+    app.commandLine.appendSwitch('enable-use-zoom-for-dsf', 'false')
   }
 
   onReady () {
