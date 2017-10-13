@@ -47,7 +47,7 @@ Create a branch and start hacking:
 $ git checkout -b my-branch -t origin/master
 ```
 
-Any text you write should follow the [Node.js Style Guide](doc/STYLE_GUIDE.md),
+Any text you write should follow the [Node.js Style Guide](https://github.com/nodejs/node/blob/master/doc/STYLE_GUIDE.md),
 including comments and API documentation.
 
 ### Step 3: Commit
